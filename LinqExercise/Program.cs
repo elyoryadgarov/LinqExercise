@@ -21,36 +21,73 @@ namespace LinqExercise
              */
 
             //TODO: Print the Sum of numbers
+            Console.WriteLine($"Sum of numbers: {numbers.Sum()}");
 
             //TODO: Print the Average of numbers
+            Console.WriteLine($"Average of numbers: {numbers.Average()}");
 
             //TODO: Order numbers in ascending order and print to the console
+            var numbersOrdered = numbers.OrderBy(x => x).ToList();
+            Console.WriteLine($"Ordered numbers: ");
+            numbersOrdered.ForEach(Console.WriteLine);
 
             //TODO: Order numbers in descending order and print to the console
-
+            var numbersOrderedDes = numbers.OrderByDescending(x => x).ToList();
+            Console.WriteLine($"Ordered numbers Descending: ");
+            numbersOrderedDes.ForEach(Console.WriteLine);
+            
             //TODO: Print to the console only the numbers greater than 6
+            var numbersGreaterSix = numbers.Where(x => x>6).ToList().OrderByDescending(x => x).ToList();
+            Console.WriteLine($"Numbers Greater Six: ");
+            numbersGreaterSix.ForEach(Console.WriteLine);
 
             //TODO: Order numbers in any order (ascending or desc) but only print 4 of them **foreach loop only!**
-
+            var numbersOnlyFour = numbers.Take(4).ToList();
+            Console.WriteLine($"Numbers Only: 4");
+            numbersOnlyFour.ForEach(Console.WriteLine);
             //TODO: Change the value at index 4 to your age, then print the numbers in descending order
+            numbers[3] = 40;
+            Console.WriteLine($"Numbers My Age: 40");
+            Array.ForEach(numbers, Console.WriteLine);
 
             // List of employees ****Do not remove this****
             var employees = CreateEmployees();
 
             //TODO: Print all the employees' FullName properties to the console only if their FirstName starts with a C OR an S and order this in ascending order by FirstName.
-
+            var nameWithCorS = employees.Where(x => x.FirstName.StartsWith("C") || x.FirstName.StartsWith("S")).OrderBy(x =>x.FirstName).ToList();
+            Console.WriteLine($"\nName Employees with C or S: ");
+            nameWithCorS.ForEach(x=>Console.WriteLine($"FullName: {x.FullName}, Age: {x.Age}, Experiance: {x.YearsOfExperience}"));
+            
             //TODO: Print all the employees' FullName and Age who are over the age 26 to the console and order this by Age first and then by FirstName in the same result.
+            var nameOver26 = employees.Where(x => x.Age>26).OrderBy(x =>x.Age).ThenBy(x=>x.FirstName).ToList();
+            Console.WriteLine($"\nName Employees over 26: ");
+            nameOver26.ForEach(x=>Console.WriteLine($"FullName: {x.FullName}, Age: {x.Age}, Experiance: {x.YearsOfExperience}"));
 
             //TODO: Print the Sum of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
+            
+            var nameOver35Exp10years = employees.Where(x => x.Age>35 && x.YearsOfExperience <= 10).Sum(x=>x.YearsOfExperience);
+            Console.WriteLine($"\nName Employees over 35 with less than 10 years expiriance: {nameOver35Exp10years.ToString()}");
+            
+            // var nameOver35Exp10 = employees.Where(x => x.Age>35 && x.YearsOfExperience >= 10).ToList();
+            // nameOver35Exp10.ForEach(x=>Console.WriteLine($"FullName: {x.FullName}, Age: {x.Age}, Experiance: {x.YearsOfExperience}"));
 
             //TODO: Now print the Average of the employees' YearsOfExperience if their YOE is less than or equal to 10 AND Age is greater than 35.
+            var AverYOEless10 = employees.Where(x => x.Age>35 && x.YearsOfExperience <= 10).Average(year => year.YearsOfExperience);
+            Console.WriteLine($"\nName Employees over 35 with less than 10 years expiriance: {Math.Round(AverYOEless10,2)}");
 
             //TODO: Add an employee to the end of the list without using employees.Add()
+            Console.WriteLine("Full Employees List");
+            var fullListEmployee = employees.ToList();
+            fullListEmployee.ForEach(x=>Console.WriteLine($"Full list of employees: {x.FullName}, Age: {x.Age}, Experiance: {x.YearsOfExperience}"));
+            Console.WriteLine("\nNew Employee Has Been Created");
+            
+            var fullListAddedEmployees = employees.Append(new Employee("True", "Coder", 35, 15));
+            var fullListAddedEmployee = fullListAddedEmployees.ToList();
+            fullListAddedEmployee.ForEach(x=>Console.WriteLine($"Full list of employees: {x.FullName}, Age: {x.Age}, Experiance: {x.YearsOfExperience}"));
 
+            // Console.WriteLine();
 
-            Console.WriteLine();
-
-            Console.ReadLine();
+            // Console.ReadLine();
         }
 
         #region CreateEmployeesMethod
